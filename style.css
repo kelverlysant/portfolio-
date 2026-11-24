@@ -88,7 +88,7 @@ body,.nav,.card,.pillars__card,.curve,.chip{transition:background-color .3s,colo
 .nav__logo{display:flex;align-items:center;gap:10px;text-decoration:none;font:700 18px var(--display)}
 .nav__logo{gap:12px}
 .nav__mono{width:36px;height:36px;border-radius:50%;background:var(--btn-bg);color:var(--btn-fg);display:grid;place-items:center;font:800 14px/1 var(--display);letter-spacing:.02em;position:relative}
-.nav__mono::after{content:"";position:absolute;right:-1px;bottom:1px;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid var(--bg)}
+.nav__mono::after{content:"";position:absolute;right:-1px;bottom:1px;width:10px;height:10px;border-radius:50%;background:var(--green);border:2px solid var(--bg)}
 .nav__name{display:flex;flex-direction:column;line-height:1.1}
 .nav__name small{font:400 13px var(--body);color:var(--muted)}
 .nav__links{display:flex;align-items:center;gap:26px}
