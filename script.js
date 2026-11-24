@@ -35,6 +35,26 @@ const PROJETOS = [
     art: "tradelab",
   },
   {
+    id: "windops",
+    nome: "WindOps 360",
+    destaque: true,
+    badge: "78 testes automatizados",
+    tags: ["dados", "api"],
+    resumo: "Transforma registros de falhas e manutenções de parques eólicos em disponibilidade, MTTR, MTBF e prejuízo em R$, e aponta quais turbinas atender primeiro.",
+    descricao: "Plataforma de manutenção e performance para parques eólicos. Um núcleo analítico em Python puro calcula os KPIs, a energia não gerada e um índice de criticidade; a API em FastAPI e o dashboard em Streamlit consomem as mesmas regras, então todo número na tela vem do mesmo cálculo. Os dados são sintéticos.",
+    destaques: [
+      "Disponibilidade, MTTR, MTBF e energia não gerada convertida em R$",
+      "Ranking de turbinas por criticidade, com a contribuição de cada fator",
+      "Alertas com regras explícitas: falhas abertas, disponibilidade abaixo da meta, reparos lentos e falhas recorrentes",
+      "API REST com FastAPI e dashboard com seis abas, incluindo turbinas animadas pelos dados",
+      "PostgreSQL com SQLAlchemy e Alembic, Docker Compose e CI no GitHub Actions",
+      "78 testes com pytest",
+    ],
+    stack: ["Python", "FastAPI", "PostgreSQL", "Streamlit", "SQLAlchemy", "Plotly", "Docker", "pytest"],
+    github: "https://github.com/kelverlysant/WindOps-360",
+    art: "windops",
+  },
+  {
     id: "comparador",
     nome: "Comparador de Ativos",
     badge: "Publicado",
@@ -158,6 +178,39 @@ const ART = {
       <g font-family="Schibsted Grotesk, sans-serif" font-size="13">
         <circle cx="48" cy="326" r="5" fill="#12A36B"/><text x="60" y="331" fill="#C9C5D3">SMA Crossover</text>
         <circle cx="178" cy="326" r="5" fill="#8E889B"/><text x="190" y="331" fill="#C9C5D3">Buy and Hold</text>
+      </g>
+    </svg>`;
+  },
+  windops() {
+    // Turbina: torre afunilada, nacele, cubo e três pás. A luz na nacele indica o estado.
+    const turbina = (x, base, h, giro, luz, opac = 1) => {
+      const topo = base - h, len = h * 0.42;
+      const pa = a => `<path d="M0 0 L${(-len * 0.06).toFixed(1)} ${(-len * 0.18).toFixed(1)} L0 ${-len} L${(len * 0.08).toFixed(1)} ${(-len * 0.2).toFixed(1)} Z" transform="rotate(${a})"/>`;
+      return `<g opacity="${opac}">
+        <polygon points="${x - h * 0.03},${base} ${x + h * 0.03},${base} ${x + h * 0.012},${topo} ${x - h * 0.012},${topo}" fill="#C9C5D3"/>
+        <rect x="${x - h * 0.05}" y="${topo - h * 0.035}" width="${h * 0.12}" height="${h * 0.05}" rx="${h * 0.015}" fill="#E2E0E6"/>
+        <circle cx="${x + h * 0.055}" cy="${topo - h * 0.01}" r="${Math.max(3, h * 0.016)}" fill="${luz}"/>
+        <g transform="translate(${x - h * 0.05} ${topo - h * 0.01}) rotate(${giro})" fill="#fff">${[0, 120, 240].map(pa).join("")}</g>
+        <circle cx="${x - h * 0.05}" cy="${topo - h * 0.01}" r="${Math.max(3, h * 0.02)}" fill="#fff"/>
+      </g>`;
+    };
+    const kpis = [["Disponibilidade", "96,4%"], ["MTTR", "18,2 h"], ["Perda", "R$ 1,3 mi"]];
+    return `<svg viewBox="0 0 640 360" preserveAspectRatio="xMidYMid slice">
+      <rect width="640" height="360" fill="#201D26"/>
+      <path d="M0 300 C120 286 220 296 330 288 S540 280 640 292 L640 360 L0 360 Z" fill="#2A2730"/>
+      ${turbina(110, 300, 112, 18, "#12A36B", 0.55)}
+      ${turbina(250, 300, 140, 64, "#12A36B")}
+      ${turbina(400, 300, 128, 0, "#D14343")}
+      ${turbina(530, 300, 104, 40, "#E0A100", 0.55)}
+      <g font-family="Schibsted Grotesk, sans-serif">
+        ${kpis.map(([k, v], i) => `<rect x="${32 + i * 156}" y="24" width="144" height="58" rx="12" fill="#2E2A36"/>
+          <text x="${46 + i * 156}" y="45" font-size="12" fill="#A8A3B5">${k}</text>
+          <text x="${46 + i * 156}" y="70" font-size="19" font-weight="700" fill="#fff">${v}</text>`).join("")}
+      </g>
+      <g font-family="Schibsted Grotesk, sans-serif" font-size="13">
+        <circle cx="48" cy="331" r="5" fill="#12A36B"/><text x="60" y="336" fill="#C9C5D3">Operando</text>
+        <circle cx="146" cy="331" r="5" fill="#E0A100"/><text x="158" y="336" fill="#C9C5D3">Abaixo da meta</text>
+        <circle cx="282" cy="331" r="5" fill="#D14343"/><text x="294" y="336" fill="#C9C5D3">Falha aberta</text>
       </g>
     </svg>`;
   },
